@@ -2,7 +2,7 @@
 
 Publication-ready dataset for the course *Extraction and preparation of chemical information*. 
 
-**Topic:** Protein–protein interactions in DNA repair (TODO: replace with my project in `project.json`).
+**Topic:** Protein–protein interactions in DNA repair.
 
 ## Scientific task
 
