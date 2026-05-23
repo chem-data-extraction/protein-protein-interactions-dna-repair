@@ -3,16 +3,14 @@ title: "Aptamer–protein binding dataset"
 message: "If you use this dataset, please cite it as below."
 type: dataset
 authors:
-  - family-names: "Student"
-    given-names: "Name"
-    affiliation: "University / Course"
-repository-code: "https://github.com/example/aptamer-protein-binding-dataset"
-url: "https://github.com/example/aptamer-protein-binding-dataset"
+  - family-names: "Terenteva"
+    given-names: "Vera"
+    affiliation: "ITMO University"
+repository-code: "https://github.com/chem-data-extraction/protein-protein-interactions-dna-repair"
+url: "https://github.com/chem-data-extraction/protein-protein-interactions-dna-repair"
 version: 0.1.0
-date-released: 2026-05-22
+date-released: 2026-05-23
 keywords:
-  - aptamer
-  - protein binding
-  - affinity
-  - scientific data extraction
+  - DNA repair
+  - protein interactions
 license: CC-BY-4.0

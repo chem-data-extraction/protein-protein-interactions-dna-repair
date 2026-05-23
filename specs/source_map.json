@@ -1,171 +1,327 @@
 {
-  "topic": "Aptamer–protein binding measurements",
-  "root_query": "aptamer protein binding Kd SPR SELEX experimental affinity",
+  "topic": "Protein–protein interactions in DNA repair",
+  "root_query": "TODO",
   "source_map_version": "0.1.0",
   "source_groups": {
-    "scientific_papers": [
-      {
-        "source_id": "paper_green_2018",
-        "name": "Green et al. 2018 – thrombin-binding DNA aptamer",
-        "source_type": "journal_article",
-        "url": "https://doi.org/10.1021/example.2018",
-        "doi": "10.1021/example.2018",
-        "access_status": "open_access",
-        "access_method": "publisher PDF download",
-        "access_date": "2026-01-15",
-        "license": "CC-BY-4.0",
-        "expected_data_volume": "low",
-        "estimated_records": 8,
-        "available_data_types": ["tables", "text", "figures"],
-        "expected_fields": ["aptamer_sequence", "target_name", "Kd", "assay_method"],
-        "extraction_strategy": {
-          "recommended_method": "pdf_table_extraction plus manual verification"
-        },
-        "notes": "Primary paper for thrombin aptamer benchmark measurements."
-      },
-      {
-        "source_id": "paper_lee_2020",
-        "name": "Lee et al. 2020 – multiplex aptamer panel",
-        "source_type": "journal_article",
-        "url": "https://doi.org/10.1038/example.2020",
-        "doi": "10.1038/example.2020",
-        "access_status": "subscription",
-        "access_method": "institutional library PDF",
-        "access_date": "2026-01-20",
-        "license": "publisher terms",
-        "expected_data_volume": "medium",
-        "estimated_records": 25,
-        "available_data_types": ["supplementary_tables"],
-        "expected_fields": ["aptamer_sequence", "target_name", "IC50", "buffer"],
-        "extraction_strategy": {
-          "recommended_method": "supplementary PDF table parsing"
-        },
-        "notes": "Use supplementary Table S3 for binding constants."
-      },
-      {
-        "source_id": "paper_kim_2015",
-        "name": "Kim et al. 2015 – lysozyme-binding aptamer",
-        "source_type": "journal_article",
-        "url": "https://doi.org/10.1016/example.2015",
-        "doi": "10.1016/example.2015",
-        "access_status": "open_access",
-        "access_method": "publisher PDF download",
-        "access_date": "2026-01-18",
-        "license": "CC-BY-NC-ND",
-        "expected_data_volume": "low",
-        "estimated_records": 6,
-        "available_data_types": ["tables", "text"],
-        "expected_fields": ["aptamer_sequence", "target_name", "Kd", "assay_method"],
-        "extraction_strategy": {
-          "recommended_method": "pdfplumber table extraction"
-        },
-        "notes": "Benchmark lysozyme aptamer measurements."
-      }
-    ],
     "supplementary_materials": [
       {
-        "source_id": "supp_lee_2020_s3",
-        "name": "Lee 2020 Supplementary Table S3",
-        "source_type": "supplementary_data",
-        "url": "https://doi.org/10.1038/example.2020#supplementary",
-        "doi": "10.1038/example.2020",
+        "source_id": "supp_ddram",
+        "name": "DDRAM: DNA damage response assembly map",
+        "source_type": "proteomics_dataset",
+        "url": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD037494",
+        "doi": "",
         "access_status": "open_access",
-        "access_method": "supplementary PDF",
-        "access_date": "2026-01-21",
-        "license": "CC-BY-4.0",
-        "expected_data_volume": "medium",
-        "estimated_records": 20,
-        "available_data_types": ["tables"],
-        "expected_fields": ["aptamer_sequence", "measurement_value", "measurement_unit"],
+        "access_method": "ProteomeXchange FTP",
+        "access_date": "2026-05-23",
+        "license": "CC0",
+        "expected_data_volume": "high",
+        "estimated_records": 336,
+        "available_data_types": [
+          "protein_interactions",
+          "protein_assemblies"
+        ],
+        "expected_fields": [
+          "protein_a_id",
+          "protein_b_id",
+          "interaction_type",
+          "confidence_score"
+        ],
         "extraction_strategy": {
-          "recommended_method": "Camelot or tabula on supplementary PDF"
+          "recommended_method": "parse proteomics data files (e.g., mzIdentML, mzTab) using Python libraries (e.g., pyteomics)"
         },
-        "notes": "Machine-readable tables; preferred over main-text figure values."
+        "notes": "Multi-conditional protein interaction networks; 57 novel proteins implicated in DDR."
+      },
+      {
+        "source_id": "supp_pxd016673",
+        "name": "Bromodomain proteins in DNA repair",
+        "source_type": "proteomics_dataset",
+        "url": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD016673",
+        "doi": "",
+        "access_status": "open_access",
+        "access_method": "ProteomeXchange FTP",
+        "access_date": "2026-05-23",
+        "license": "CC0",
+        "expected_data_volume": "high",
+        "estimated_records": 24,
+        "available_data_types": [
+          "protein_interactions"
+        ],
+        "expected_fields": [
+          "bait_protein",
+          "prey_protein",
+          "detection_method"
+        ],
+        "extraction_strategy": {
+          "recommended_method": "parse AP-MS data files"
+        },
+        "notes": "Affinity purification experiments for 24 human bromodomain proteins involved in DNA repair."
+      },
+      {
+        "source_id": "supp_pxd036040",
+        "name": "BER/RER lesion repair proteomics",
+        "source_type": "proteomics_dataset",
+        "url": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD036040",
+        "doi": "",
+        "access_status": "open_access",
+        "access_method": "ProteomeXchange FTP",
+        "access_date": "2026-05-23",
+        "license": "CC0",
+        "expected_data_volume": "high",
+        "estimated_records": "not specified",
+        "available_data_types": [
+          "protein_interactions"
+        ],
+        "expected_fields": [
+          "protein_id",
+          "lesion_type",
+          "repair_pathway"
+        ],
+        "extraction_strategy": {
+          "recommended_method": "parse mass spectrometry data files"
+        },
+        "notes": "Proteomics of BER and RER pathways; 140 characterized DNA repair proteins, 39 novel."
       }
     ],
     "databases": [
       {
-        "source_id": "db_aptagen",
-        "name": "AptaIndex / literature-curated aptamer entries",
+        "source_id": "db_repairtoire",
+        "name": "REPAIRtoire: DNA repair pathways database",
         "source_type": "database",
-        "url": "https://example.org/aptamer-db",
+        "url": "https://repairtoire.genesilico.pl",
         "doi": "",
         "access_status": "open_access",
-        "access_method": "web export and API (if available)",
-        "access_date": "2026-02-01",
-        "license": "CC-BY-4.0",
-        "expected_data_volume": "high",
-        "estimated_records": 200,
-        "available_data_types": ["structured_records", "sequences"],
-        "expected_fields": ["aptamer_sequence", "target_name", "Kd"],
+        "access_method": "web interface / direct HTML parsing",
+        "access_date": "2026-05-23",
+        "license": "freely available",
+        "expected_data_volume": "low",
+        "estimated_records": 256,
+        "available_data_types": [
+          "pathways",
+          "proteins",
+          "diseases",
+          "damages"
+        ],
+        "expected_fields": [
+          "protein_name",
+          "pathway",
+          "gene_name",
+          "uniprot_id"
+        ],
         "extraction_strategy": {
-          "recommended_method": "web_scrape or bulk CSV download"
+          "recommended_method": "web scraping using Python (BeautifulSoup/Scrapy) or direct HTML parsing"
         },
-        "notes": "Cross-check sequences against primary papers when possible."
+        "notes": "Comprehensive database for DNA damage and repair systems biology; includes 8 main repair pathways and 256 human genes."
+      },
+      {
+        "source_id": "db_reactome",
+        "name": "Reactome Pathway Database",
+        "source_type": "database",
+        "url": "https://reactome.org",
+        "doi": "",
+        "access_status": "open_access",
+        "access_method": "REST API / BioPAX / SBML downloads / MySQL dumps",
+        "access_date": "2026-05-23",
+        "license": "CC-BY-4.0 (Creative Commons Attribution 4.0 International)",
+        "expected_data_volume": "high",
+        "estimated_records": "full database: 2000+ human pathways",
+        "available_data_types": [
+          "pathways",
+          "reactions",
+          "physical_entities",
+          "interactions"
+        ],
+        "expected_fields": [
+          "pathway_id",
+          "pathway_name",
+          "protein_id",
+          "reaction_id",
+          "interaction_type"
+        ],
+        "extraction_strategy": {
+          "recommended_method": "1. REST API for targeted queries\n2. BioPAX export for full pathway data\n3. MySQL dump for complete local analysis"
+        },
+        "notes": "Curated pathway database with detailed molecular reactions; provides interaction context and physical entities."
+      },
+      {
+        "source_id": "db_intact",
+        "name": "IntAct Molecular Interaction Database",
+        "source_type": "database",
+        "url": "https://www.ebi.ac.uk/intact",
+        "doi": "10.1093/nar/gkad1046",
+        "access_status": "open_access",
+        "access_method": "PSICQUIC web service / FTP download (PSI-MI TAB, PSI-MI XML) / REST API",
+        "access_date": "2026-05-23",
+        "license": "Apache License, Version 2.0",
+        "expected_data_volume": "very high",
+        "estimated_records": "full database: >700,000 interactions",
+        "available_data_types": [
+          "molecular_interactions",
+          "complexes",
+          "experimental_methods",
+          "interaction_parameters"
+        ],
+        "expected_fields": [
+          "interactor_a",
+          "interactor_b",
+          "detection_method",
+          "interaction_type",
+          "pmid",
+          "confidence_score"
+        ],
+        "extraction_strategy": {
+          "recommended_method": "1. PSICQUIC for programmatic queries\n2. FTP download of PSI-MITAB files for bulk processing"
+        },
+        "notes": "Open-source, manually curated molecular interaction database; supports PSI-MI standards, PSICQUIC interoperability."
+      },
+      {
+        "source_id": "db_uniprot",
+        "name": "UniProt Knowledgebase",
+        "source_type": "database",
+        "url": "https://www.uniprot.org",
+        "doi": "10.1093/nar/gkad1048",
+        "access_status": "open_access",
+        "access_method": "REST API / SPARQL endpoint / FTP download",
+        "access_date": "2026-05-23",
+        "license": "CC-BY-4.0",
+        "expected_data_volume": "metadata only (not primary PPI source)",
+        "estimated_records": "mapping service for all human proteins",
+        "available_data_types": [
+          "protein_sequences",
+          "identifiers",
+          "annotations",
+          "taxonomy"
+        ],
+        "expected_fields": [
+          "uniprot_ac",
+          "gene_name",
+          "protein_name",
+          "organism",
+          "function"
+        ],
+        "extraction_strategy": {
+          "recommended_method": "REST API for ID mapping (e.g., entrez -> UniProt) and protein annotation retrieval"
+        },
+        "notes": "Does not provide PPI directly; used for identifier normalization and protein annotation enrichment."
+      },
+      {
+        "source_id": "db_hgnc",
+        "name": "HGNC Gene Nomenclature Database",
+        "source_type": "database",
+        "url": "https://www.genenames.org",
+        "doi": "",
+        "access_status": "open_access",
+        "access_method": "REST API / FTP download / web search",
+        "access_date": "2026-05-23",
+        "license": "freely available",
+        "expected_data_volume": "metadata only",
+        "estimated_records": "~37,000 human loci (~19,000 protein-coding)",
+        "available_data_types": [
+          "gene_symbols",
+          "gene_names",
+          "cross_references"
+        ],
+        "expected_fields": [
+          "hgnc_id",
+          "symbol",
+          "name",
+          "previous_symbols",
+          "uniprot_ids",
+          "ensembl_ids"
+        ],
+        "extraction_strategy": {
+          "recommended_method": "REST API for symbol lookup; bulk download for complete mapping table"
+        },
+        "notes": "Standard authority for human gene symbols; used to normalize gene names across sources."
+      },
+      {
+        "source_id": "db_ncbi_taxonomy",
+        "name": "NCBI Taxonomy Database",
+        "source_type": "database",
+        "url": "https://www.ncbi.nlm.nih.gov/taxonomy",
+        "doi": "",
+        "access_status": "open_access",
+        "access_method": "Entrez Programming Utilities (E-utilities) / FTP download / REST API",
+        "access_date": "2026-05-23",
+        "license": "public domain",
+        "expected_data_volume": "metadata only",
+        "estimated_records": "full taxonomy tree",
+        "available_data_types": [
+          "taxonomic_identifiers",
+          "scientific_names",
+          "lineage"
+        ],
+        "expected_fields": [
+          "tax_id",
+          "scientific_name",
+          "rank",
+          "lineage"
+        ],
+        "extraction_strategy": {
+          "recommended_method": "E-utilities for taxid lookup; taxonomy dump for offline mapping"
+        },
+        "notes": "Standard source for organism taxonomy identifiers (e.g., taxid:9606 for Homo sapiens)."
       }
     ],
     "aggregators": [
       {
-        "source_id": "agg_uniprot_crossref",
-        "name": "UniProt + Crossref metadata for target proteins",
+        "source_id": "agg_pathway_commons",
+        "name": "Pathway Commons",
         "source_type": "aggregator",
-        "url": "https://www.uniprot.org/",
+        "url": "https://www.pathwaycommons.org",
         "doi": "",
         "access_status": "open_access",
-        "access_method": "REST API",
-        "access_date": "2026-02-05",
+        "access_method": "REST API / SPARQL / BioPAX download",
+        "access_date": "2026-05-23",
         "license": "CC-BY-4.0",
-        "expected_data_volume": "metadata_only",
-        "estimated_records": 0,
-        "available_data_types": ["protein_names", "identifiers"],
-        "expected_fields": ["target_name", "target_type"],
+        "expected_data_volume": "metadata only",
+        "estimated_records": "full database: >2,000 pathways",
+        "available_data_types": [
+          "pathways",
+          "interactions",
+          "physical_entities"
+        ],
+        "expected_fields": [
+          "pathway_name",
+          "protein_id",
+          "interaction_id"
+        ],
         "extraction_strategy": {
-          "recommended_method": "API lookup to standardize target names"
+          "recommended_method": "REST API for pathway-protein membership queries"
         },
-        "notes": "Does not provide binding values; enriches target metadata only."
+        "notes": "Integrates pathway data from multiple sources (Reactome, KEGG, etc.); can complement REPAIRtoire pathway annotations."
+      },
+      {
+        "source_id": "agg_hitpredict",
+        "name": "HitPredict: High-confidence PPI",
+        "source_type": "aggregator",
+        "url": "http://www.hitpredict.org",
+        "doi": "10.1093/bioinformatics/btaa1042",
+        "access_status": "open_access",
+        "access_method": "web interface / FTP download",
+        "access_date": "2026-05-23",
+        "license": "freely available",
+        "expected_data_volume": "metadata only",
+        "estimated_records": "full database: ~300,000 interactions (human: ~100,000)",
+        "available_data_types": [
+          "physical_interactions",
+          "reliability_scores"
+        ],
+        "expected_fields": [
+          "protein_a_id",
+          "protein_b_id",
+          "reliability_score",
+          "detection_method",
+          "pmid"
+        ],
+        "extraction_strategy": {
+          "recommended_method": "bulk download of interaction files with reliability scores"
+        },
+        "notes": "Provides reliability scores for physical PPIs; useful for filtering high-confidence interactions."
       }
     ],
     "github_repositories": [
-      {
-        "source_id": "gh_aptamer_benchmark",
-        "name": "community/aptamer-binding-benchmark",
-        "source_type": "github_repository",
-        "url": "https://github.com/example/aptamer-binding-benchmark",
-        "doi": "",
-        "access_status": "open_access",
-        "access_method": "git clone",
-        "access_date": "2026-02-10",
-        "license": "MIT",
-        "expected_data_volume": "medium",
-        "estimated_records": 50,
-        "available_data_types": ["csv", "json"],
-        "expected_fields": ["aptamer_sequence", "target_name", "measurement_value"],
-        "extraction_strategy": {
-          "recommended_method": "import released CSV with license check"
-        },
-        "notes": "Verify commit hash and release tag for reproducibility."
-      }
     ],
     "ml_datasets": [
-      {
-        "source_id": "ml_aptamer_kaggle",
-        "name": "Kaggle – Aptamer affinity prediction subset",
-        "source_type": "ml_dataset",
-        "url": "https://www.kaggle.com/datasets/example/aptamer-affinity",
-        "doi": "",
-        "access_status": "registration_required",
-        "access_method": "Kaggle API download",
-        "access_date": "2026-02-12",
-        "license": "unknown",
-        "expected_data_volume": "high",
-        "estimated_records": 500,
-        "available_data_types": ["csv"],
-        "expected_fields": ["aptamer_sequence", "target_name", "label"],
-        "extraction_strategy": {
-          "recommended_method": "document provenance; use only if license permits redistribution"
-        },
-        "notes": "May mix predicted and experimental values—filter by source column."
-      }
     ]
   }
 }

@@ -1,6 +1,6 @@
-# Aptamer–protein binding dataset (project template)
+# Protein–protein interactions in DNA repair
 
-Publication-ready **dataset project template** for the course *Extraction and preparation of chemical information*. Students move from a research topic to a structured, validated dataset with documented sources, extraction steps, cleaning pipeline, reports, and citation metadata.
+Publication-ready dataset for the course *Extraction and preparation of chemical information*. 
 
 **Topic:** Protein–protein interactions in DNA repair (TODO: replace with my project in `project.json`).
 
@@ -10,7 +10,7 @@ Collect experimentally reported interactions between proteins involved in DNA da
 
 ## What is one record?
 
-One **record** = one experimentally reported aptamer–protein binding measurement from a specific source (one row in `data/processed/dataset.csv`). See `project.json` and `reports/practice_01_record_and_schema.md`.
+One **record** = one experimentally reported physical interaction between two proteins that are involved in DNA damage recognition, repair, checkpoint control, or genome stability. The interaction must be directly supported by a publication and curated by a trusted source database.
 
 ## Repository structure
 
