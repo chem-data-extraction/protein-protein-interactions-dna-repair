@@ -2,11 +2,11 @@
 
 Publication-ready **dataset project template** for the course *Extraction and preparation of chemical information*. Students move from a research topic to a structured, validated dataset with documented sources, extraction steps, cleaning pipeline, reports, and citation metadata.
 
-**Example topic:** Aptamer–protein binding dataset (replace with your own project in `project.json`).
+**Topic:** Protein–protein interactions in DNA repair (TODO: replace with my project in `project.json`).
 
 ## Scientific task
 
-Collect experimentally reported aptamer–protein binding measurements (sequences, targets, affinity values, assay context) so they can be compared across literature and database sources.
+Collect experimentally reported interactions between proteins involved in DNA damage recognition, repair, checkpoint control, and genome stability.
 
 ## What is one record?
 
