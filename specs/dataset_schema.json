@@ -56,7 +56,7 @@
         "example": "BRCA1"
       },
       {
-        "name": "protein_a_repair_pathway",
+        "name": "protein_a_repair_pathways",
         "type": "string",
         "required": false,
         "description": "DNA repair pathway(s) associated with protein A. Multiple pathways separated by '|'.",
@@ -64,7 +64,7 @@
         "normalization_rule": "Controlled vocabulary: BER, NER, HRR, NHEJ, MMR, TLS, DDS, DDR. Use '|' for multiple."
       },
       {
-        "name": "protein_b_repair_pathway",
+        "name": "protein_b_repair_pathways",
         "type": "string",
         "required": false,
         "description": "DNA repair pathway(s) associated with protein B according to REPAIRtoire. Multiple pathways separated by '|'.",

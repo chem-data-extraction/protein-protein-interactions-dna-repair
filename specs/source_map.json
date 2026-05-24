@@ -1,7 +1,7 @@
 {
   "topic": "Protein–protein interactions in DNA repair",
   "root_query": "TODO",
-  "source_map_version": "0.1.0",
+  "source_map_version": "0.2.0",
   "source_groups": {
     "supplementary_materials": [
       {
@@ -9,12 +9,12 @@
         "name": "DDRAM: DNA damage response assembly map",
         "source_type": "proteomics_dataset",
         "url": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD037494",
-        "doi": "",
+        "doi": "10.1016/j.cels.2023.04.007",
         "access_status": "open_access",
         "access_method": "ProteomeXchange FTP",
         "access_date": "2026-05-23",
         "license": "CC0",
-        "expected_data_volume": "high",
+        "expected_data_volume": "medium",
         "estimated_records": 336,
         "available_data_types": [
           "protein_interactions",
@@ -24,7 +24,8 @@
           "protein_a_id",
           "protein_b_id",
           "interaction_type",
-          "confidence_score"
+          "interaction_confidence",
+          "pmid"
         ],
         "extraction_strategy": {
           "recommended_method": "parse proteomics data files (e.g., mzIdentML, mzTab) using Python libraries (e.g., pyteomics)"
@@ -36,50 +37,26 @@
         "name": "Bromodomain proteins in DNA repair",
         "source_type": "proteomics_dataset",
         "url": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD016673",
-        "doi": "",
+        "doi": "10.1101/gad.331231.119",
         "access_status": "open_access",
         "access_method": "ProteomeXchange FTP",
         "access_date": "2026-05-23",
         "license": "CC0",
-        "expected_data_volume": "high",
+        "expected_data_volume": "low",
         "estimated_records": 24,
         "available_data_types": [
           "protein_interactions"
         ],
         "expected_fields": [
-          "bait_protein",
-          "prey_protein",
-          "detection_method"
+          "protein_a_id",
+          "protein_b_id",
+          "detection_method",
+          "pmid"
         ],
         "extraction_strategy": {
           "recommended_method": "parse AP-MS data files"
         },
         "notes": "Affinity purification experiments for 24 human bromodomain proteins involved in DNA repair."
-      },
-      {
-        "source_id": "supp_pxd036040",
-        "name": "BER/RER lesion repair proteomics",
-        "source_type": "proteomics_dataset",
-        "url": "https://proteomecentral.proteomexchange.org/cgi/GetDataset?ID=PXD036040",
-        "doi": "",
-        "access_status": "open_access",
-        "access_method": "ProteomeXchange FTP",
-        "access_date": "2026-05-23",
-        "license": "CC0",
-        "expected_data_volume": "high",
-        "estimated_records": "not specified",
-        "available_data_types": [
-          "protein_interactions"
-        ],
-        "expected_fields": [
-          "protein_id",
-          "lesion_type",
-          "repair_pathway"
-        ],
-        "extraction_strategy": {
-          "recommended_method": "parse mass spectrometry data files"
-        },
-        "notes": "Proteomics of BER and RER pathways; 140 characterized DNA repair proteins, 39 novel."
       }
     ],
     "databases": [
@@ -88,12 +65,12 @@
         "name": "REPAIRtoire: DNA repair pathways database",
         "source_type": "database",
         "url": "https://repairtoire.genesilico.pl",
-        "doi": "",
+        "doi": "10.1093/nar/gkq1087",
         "access_status": "open_access",
         "access_method": "web interface / direct HTML parsing",
         "access_date": "2026-05-23",
         "license": "freely available",
-        "expected_data_volume": "low",
+        "expected_data_volume": "medium",
         "estimated_records": 256,
         "available_data_types": [
           "pathways",
@@ -102,26 +79,56 @@
           "damages"
         ],
         "expected_fields": [
-          "protein_name",
-          "pathway",
-          "gene_name",
-          "uniprot_id"
+          "protein_a_gene",
+          "protein_a_repair_pathways",
+          "protein_a_id"
         ],
         "extraction_strategy": {
           "recommended_method": "web scraping using Python (BeautifulSoup/Scrapy) or direct HTML parsing"
         },
-        "notes": "Comprehensive database for DNA damage and repair systems biology; includes 8 main repair pathways and 256 human genes."
+        "notes": "Provides mapping from gene/protein to DNA repair pathway (BER, NER, HRR, NHEJ, MMR, TLS, DDS, DDR)."
+      },
+      {
+        "source_id": "db_biogrid",
+        "name": "BioGRID Interaction Database",
+        "source_type": "database",
+        "url": "https://thebiogrid.org",
+        "doi": "10.1093/nar/gkad1046",
+        "access_status": "open_access",
+        "access_method": "REST API / FTP download (MITAB, TAB3, PSI-MI XML) / web interface",
+        "access_date": "2026-05-23",
+        "license": "MIT License",
+        "expected_data_volume": "very high",
+        "estimated_records": "full database: >2,000,000 interactions (human: >500,000)",
+        "available_data_types": [
+          "genetic_interactions",
+          "physical_interactions",
+          "chemical_interactions",
+          "PTMs",
+          "CRISPR_screens"
+        ],
+        "expected_fields": [
+          "protein_a_id",
+          "protein_b_id",
+          "interaction_type",
+          "interaction_context",
+          "pmid"
+        ],
+        "extraction_strategy": {
+          "recommended_method": "1. REST API for targeted gene queries\n2. FTP download of BIOGRID-ALL-LATEST.mitab.zip for complete dataset"
+        },
+        "notes": "Curated repository of genetic, protein, and chemical interactions; monthly updates; includes PTM data."
       },
       {
         "source_id": "db_reactome",
         "name": "Reactome Pathway Database",
         "source_type": "database",
         "url": "https://reactome.org",
-        "doi": "",
+        "doi": "10.1093/nar/gkq1018",
         "access_status": "open_access",
         "access_method": "REST API / BioPAX / SBML downloads / MySQL dumps",
         "access_date": "2026-05-23",
-        "license": "CC-BY-4.0 (Creative Commons Attribution 4.0 International)",
+        "license": "CC-BY-4.0",
         "expected_data_volume": "high",
         "estimated_records": "full database: 2000+ human pathways",
         "available_data_types": [
@@ -131,23 +138,22 @@
           "interactions"
         ],
         "expected_fields": [
-          "pathway_id",
-          "pathway_name",
-          "protein_id",
-          "reaction_id",
-          "interaction_type"
+          "protein_a_id",
+          "protein_b_id",
+          "interaction_type",
+          "interaction_context"
         ],
         "extraction_strategy": {
           "recommended_method": "1. REST API for targeted queries\n2. BioPAX export for full pathway data\n3. MySQL dump for complete local analysis"
         },
-        "notes": "Curated pathway database with detailed molecular reactions; provides interaction context and physical entities."
+        "notes": "Provides contextual information: which reaction or pathway the interaction belongs to."
       },
       {
         "source_id": "db_intact",
         "name": "IntAct Molecular Interaction Database",
         "source_type": "database",
         "url": "https://www.ebi.ac.uk/intact",
-        "doi": "10.1093/nar/gkad1046",
+        "doi": "10.1093/nar/gkl958",
         "access_status": "open_access",
         "access_method": "PSICQUIC web service / FTP download (PSI-MI TAB, PSI-MI XML) / REST API",
         "access_date": "2026-05-23",
@@ -161,24 +167,30 @@
           "interaction_parameters"
         ],
         "expected_fields": [
-          "interactor_a",
-          "interactor_b",
-          "detection_method",
+          "source_db",
+          "source_db_id",
+          "protein_a_id",
+          "protein_b_id",
+          "protein_a_gene",
+          "protein_b_gene",
           "interaction_type",
+          "detection_method",
+          "interaction_confidence",
           "pmid",
-          "confidence_score"
+          "taxid_a",
+          "taxid_b"
         ],
         "extraction_strategy": {
           "recommended_method": "1. PSICQUIC for programmatic queries\n2. FTP download of PSI-MITAB files for bulk processing"
         },
-        "notes": "Open-source, manually curated molecular interaction database; supports PSI-MI standards, PSICQUIC interoperability."
+        "notes": "Primary source for physical PPIs with experimental methods and confidence scores."
       },
       {
         "source_id": "db_uniprot",
         "name": "UniProt Knowledgebase",
         "source_type": "database",
         "url": "https://www.uniprot.org",
-        "doi": "10.1093/nar/gkad1048",
+        "doi": "10.1093/nar/gkh131",
         "access_status": "open_access",
         "access_method": "REST API / SPARQL endpoint / FTP download",
         "access_date": "2026-05-23",
@@ -192,23 +204,21 @@
           "taxonomy"
         ],
         "expected_fields": [
-          "uniprot_ac",
-          "gene_name",
-          "protein_name",
-          "organism",
-          "function"
+          "protein_a_id",
+          "protein_a_gene",
+          "taxid_a"
         ],
         "extraction_strategy": {
           "recommended_method": "REST API for ID mapping (e.g., entrez -> UniProt) and protein annotation retrieval"
         },
-        "notes": "Does not provide PPI directly; used for identifier normalization and protein annotation enrichment."
+        "notes": "Used for identifier normalization: converts gene symbols, Entrez IDs to UniProtKB AC and retrieves taxonomy."
       },
       {
         "source_id": "db_hgnc",
         "name": "HGNC Gene Nomenclature Database",
         "source_type": "database",
         "url": "https://www.genenames.org",
-        "doi": "",
+        "doi": "10.1093/nar/gkj147",
         "access_status": "open_access",
         "access_method": "REST API / FTP download / web search",
         "access_date": "2026-05-23",
@@ -221,24 +231,19 @@
           "cross_references"
         ],
         "expected_fields": [
-          "hgnc_id",
-          "symbol",
-          "name",
-          "previous_symbols",
-          "uniprot_ids",
-          "ensembl_ids"
+          "protein_a_gene"
         ],
         "extraction_strategy": {
           "recommended_method": "REST API for symbol lookup; bulk download for complete mapping table"
         },
-        "notes": "Standard authority for human gene symbols; used to normalize gene names across sources."
+        "notes": "Standardizes gene symbols to HGNC official names."
       },
       {
         "source_id": "db_ncbi_taxonomy",
         "name": "NCBI Taxonomy Database",
         "source_type": "database",
         "url": "https://www.ncbi.nlm.nih.gov/taxonomy",
-        "doi": "",
+        "doi": "10.1093/nar/gkr1178",
         "access_status": "open_access",
         "access_method": "Entrez Programming Utilities (E-utilities) / FTP download / REST API",
         "access_date": "2026-05-23",
@@ -251,15 +256,12 @@
           "lineage"
         ],
         "expected_fields": [
-          "tax_id",
-          "scientific_name",
-          "rank",
-          "lineage"
+          "taxid_a"
         ],
         "extraction_strategy": {
           "recommended_method": "E-utilities for taxid lookup; taxonomy dump for offline mapping"
         },
-        "notes": "Standard source for organism taxonomy identifiers (e.g., taxid:9606 for Homo sapiens)."
+        "notes": "Provides NCBI taxonomy IDs for organisms (e.g., 9606 for Homo sapiens)."
       }
     ],
     "aggregators": [
@@ -281,21 +283,20 @@
           "physical_entities"
         ],
         "expected_fields": [
-          "pathway_name",
-          "protein_id",
-          "interaction_id"
+          "protein_a_id",
+          "protein_a_repair_pathways"
         ],
         "extraction_strategy": {
           "recommended_method": "REST API for pathway-protein membership queries"
         },
-        "notes": "Integrates pathway data from multiple sources (Reactome, KEGG, etc.); can complement REPAIRtoire pathway annotations."
+        "notes": "Alternative source for pathway annotations; can complement REPAIRtoire."
       },
       {
         "source_id": "agg_hitpredict",
         "name": "HitPredict: High-confidence PPI",
         "source_type": "aggregator",
         "url": "http://www.hitpredict.org",
-        "doi": "10.1093/bioinformatics/btaa1042",
+        "doi": "10.1093/nar/gkq897",
         "access_status": "open_access",
         "access_method": "web interface / FTP download",
         "access_date": "2026-05-23",
@@ -309,7 +310,7 @@
         "expected_fields": [
           "protein_a_id",
           "protein_b_id",
-          "reliability_score",
+          "interaction_confidence",
           "detection_method",
           "pmid"
         ],
@@ -319,9 +320,7 @@
         "notes": "Provides reliability scores for physical PPIs; useful for filtering high-confidence interactions."
       }
     ],
-    "github_repositories": [
-    ],
-    "ml_datasets": [
-    ]
+    "github_repositories": [],
+    "ml_datasets": []
   }
 }

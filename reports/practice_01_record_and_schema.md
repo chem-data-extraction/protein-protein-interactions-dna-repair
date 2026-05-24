@@ -15,6 +15,7 @@ One **record** = one experimentally reported aptamer–protein binding measureme
 in `data/processed/dataset.csv`). See `project.json` and `reports/practice_01_record_and_schema.md`.
 
 Each record corresponds to one row in data/processed/dataset.csv and contains at least:
+
 - UniProtKB identifiers for both proteins
 - Interaction type (PSI‑MI controlled vocabulary)
 - Detection method (PSI‑MI)
@@ -23,18 +24,21 @@ Each record corresponds to one row in data/processed/dataset.csv and contains at
 
 ## Examples of records
 
-| Example                                                                         | Why it counts                                   |
-|---------------------------------------------------------------------------------|-------------------------------------------------|
-| Kd = 0.5 nM for sequence GGTTGGTGTGGTTGG vs thrombin from Table 2 in Green 2018 | Single measurement + sequence + target + source |
-| IC50 from supplementary table for one aptamer–lysozyme pair                     | One numeric binding outcome tied to one pair    |
+| Example                                                                                                                                                                                                                                                                                                                                                                                  | Why it counts                                                                                                                                                                                                                                                |
+|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| XRCC1 (P18887) – APEX1 (P27695) interaction from IntAct (EBI-4566492), detected by anti‑bait co‑immunoprecipitation (MI:0005), PMID: 19934257, taxid: 9606/9606, interaction type: physical association (MI:0915), confidence score: 0.4 (MI Score). Both proteins annotated to BER pathway via REPAIRtoire.                                                                             | Complete record with all required fields (protein_a_id, protein_b_id, source_db_id, detection_method as PSI‑MI term, pmid, taxid). Includes optional confidence score. Pathway context (BER) can be added via mapping.                                       |
+| XRCC1 (P18887) – APTX (Q7Z2E3‑9 isoform) from IntAct (EBI-11161000), detected by anti‑tag co‑immunoprecipitation (MI:0007), PMID: 26496610, DOI: 10.1016/j.cell.2015.09.053, taxid: 9606/9606, interaction type: association (MI:0914) (close to physical association), confidence score: 0.35 (MI Score). XRCC1 belongs to BER pathway; APTX is involved in single‑strand break repair. | Valid record despite use of a splice variant for APTX. The interaction is experimentally validated with a physical method. Isoform identifier is retained as provided; optional normalisation to canonical UniProt AC (Q7Z2E3) can be noted in record_notes. |
+
+Both records meet inclusion criteria: direct physical interaction, experimental detection method (co‑IP), traceable
+source database ID, PubMed ID, and organism identifiers.
 
 ## Non-record examples
 
-| Example                                                        | Why it is not a record                         |
-|----------------------------------------------------------------|------------------------------------------------|
-| General review paragraph on SELEX without numeric binding data | No measurement                                 |
-| Full list of 50 sequences without per-sequence affinity        | Not one measurement per row (unless split)     |
-| Predicted docking score without experimental citation          | Out of scope if only experimental data allowed |
+| Example                                                                                                                                                                                       | Why it is not a record                                                                                                                                                                                                                                                                                                                                                    |
+|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NPM1 (P06748) – XRCC1 (P18887) from IntAct (EBI-58762356), detected by proximity‑dependent biotin identification (BioID), PMID: 39251607, interaction type: proximity.                        | Detection method (proximity labeling) does not demonstrate direct physical binding; it only indicates spatial proximity (<20 nm) in the cell. According to inclusion criteria, only methods that directly measure physical interaction (e.g., co‑immunoprecipitation, affinity chromatography, FRET, crystallography) are accepted. Proximity‑based methods are excluded. |
+| A BioGRID entry that lists only “Physical Association” but does not provide a specific detection method (e.g., “Affinity Capture‑MS” missing) and has no interaction confidence or PubMed ID. | Missing required fields: detection_method (must be a physical method PSI‑MI term) and pmid.                                                                                                                                                                                                                                                                               |
+| “ATM and ATR function together in the DNA damage response” from a review article, no experimental method, no PubMed ID for the specific interaction, no source database ID.                   | No experimental detection method; no source_db_id; not a curated physical interaction record.                                                                                                                                                                                                                                                                             |
 
 ## Dataset fields
 
@@ -62,4 +66,19 @@ TODO: указать для всех чёткий формат и способы
 | `record_notes`             | String    | No          | Curator notes. Examples: “Pathway from REPAIRtoire mapping”, “Merged from BioGRID and IntAct – same PMID and method”, “Confidence score not provided”.                                          |
 
 ## Ambiguous cases
-
+ - Interaction between Protein A (human) and Protein B (mouse) – different taxids.   
+Keep record. Include both taxid values (e.g., 9606 and 10090). As long as the interaction is experimentally shown (e.g., human protein expressed in mouse cells), it qualifies. Add note in record_notes: “cross‑species interaction”.
+- Multiple detection methods for the same protein pair listed as separate entries in the source database.   	
+Keep separate records (each with its own source_db_id). Do not merge. In final dataset for network construction, can be deduplicated by (protein_a_id, protein_b_id, pmid) if needed.
+- Same interaction reported by two different databases (e.g., IntAct and BioGRID) with different interaction_type terms (e.g., “direct interaction” vs. “physical association”).   
+Keep both records. Do not overwrite. In network analysis, the more specific term (direct interaction) may be preferred, but the dataset retains both.
+- Confidence score is provided as a range (e.g., “0.7–0.9”) or text (“high”).    	
+Store null in interaction_confidence. Record the range or text in record_notes. Do not convert to numeric.
+- The protein is annotated with multiple DNA repair pathways in REPAIRtoire (e.g., BER and NER).
+Use pipe separator: BER|NER. Both pathways are stored as a single string.
+- The source database provides an interaction, but the protein identifiers are not UniProt AC (e.g., Entrez Gene ID).   
+   Map to UniProt AC using UniProt ID mapping service. Store original identifier in record_notes if desired. The record is still valid after normalisation.
+- The same protein pair with same detection method and same PMID appears twice in the same source database but with different source_db_id (possible duplicate curation).   
+Keep both entries unless identical in all mandatory fields. If identical, deduplicate and note in record_notes. 
+- Different interaction types for the same protein pair across different sources – e.g., IntAct says “direct interaction” (MI:0407), BioGRID says “physical association” (MI:0915) (or same source gives different records on interaction type).   
+Keep both records. Do not overwrite one with the other. When aggregating for network analysis, the more specific term (direct interaction) may be preferred, but the raw dataset must retain both to maintain provenance. Document the discrepancy in record_notes if desired (e.g., “direct interaction vs. physical association”).
